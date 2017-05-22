@@ -1,0 +1,7 @@
+{
+    "model": "Note",
+    "data": [
+        { "text": "json-example-entry-1" },
+        { "text": "json-example-entry-2" }
+    ]
+}

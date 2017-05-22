@@ -1,0 +1,30 @@
+{
+  "name": "noderest",
+  "version": "0.0.1",
+  "description": "Create rest api",
+  "main": "dist.js",
+  "scripts": {
+    "test": "mocha ./tests/index.js",
+    "build": "babel ./src --presets babel-preset-es2015,babel-preset-stage-2 -o ./tmp.js && uglifyjs ./tmp.js --compress --mangle -o ./dist.js && rm ./tmp.js"
+  },
+  "author": "han4wluc",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.10.1"
+  },
+  "devDependencies": {
+    "axios": "^0.16.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "chai": "^3.5.0",
+    "mockgoose": "^7.3.1"
+  }
+}
