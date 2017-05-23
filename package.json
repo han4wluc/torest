@@ -1,6 +1,6 @@
 {
   "name": "torest",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create REST api",
   "main": "dist/index.js",
   "scripts": {
