@@ -392,14 +392,13 @@ describe('GET /id', function(){
 
   });
 
-  it('should return with code 404', async function(done){
+  it('should return with code 404', async function(){
     var status, data;
     try {
       const result = await axs.get('/note/56cb91bdc3464f14678934ca');
-      done(new Error('Error'));
+      throw new Error('Error');
     } catch (error) {
       error.response.status.should.equal(404);
-      done();
     }
   });
 });
@@ -424,32 +423,30 @@ describe('POST /', function(){
 
 describe('PUT /', function(){
 
-  it('should return with code 500', async function(done){
+  it('should return with code 500', async function(){
 
     try {
       const { status, data } = await axs.put('/note', {
         where: {},
         body: { title: 'hello' },
       });
-      done(new Error('Error'));
+      throw new Error('Error');
     } catch (error){
       error.response.status.should.equal(500);
-      done();
     }
 
   });
 
-  it('should return with code 500', async function(done){
+  it('should return with code 500', async function(){
 
     try {
       const { status, data } = await axs.put('/note', {
         where: { title: 'hello' },
         body: {},
       });
-      done(new Error('Error'));
+      throw new Error('Error');
     } catch (error){
       error.response.status.should.equal(500);
-      done();
     }
 
   });
@@ -544,15 +541,13 @@ describe('PUT /id', function(){
     data2.map(d=>JSON.parse(JSON.stringify(d))).should.deep.equal(expected);
   });
 
-  it('should return with code 404', async function(done){
+  it('should return with code 404', async function(){
     var status, data;
     try {
       const result = await axs.put('/note/56cb91bdc3464f14678934ca');
-      done(new Error('Error'));
+      throw new Error('Error');
     } catch (error) {
-      // console.log('bbbb', error)
       error.response.status.should.equal(404);
-      done();
     }
   });
 
@@ -578,14 +573,13 @@ describe('DELETE /id', function(){
 
   });
 
-  it('should return with code 404', async function(done){
+  it('should return with code 404', async function(){
     var status, data;
     try {
       const result = await axs.delete('/note/56cb91bdc3464f14678934ca');
-      done(new Error('Error'));
+      throw new Error('Error');
     } catch (error) {
       error.response.status.should.equal(404);
-      done();
     }
   });
 
