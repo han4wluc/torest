@@ -16,12 +16,12 @@ const findAll = async function({model, query: originalQuery}){
 
   const query = Parse.parseQuery(originalQuery);
   // console.log({query})
-  const { find, limit, select, sort, skip, populate } = query;
+  const { where, limit, select, sort, skip, populate } = query;
   // console.log('select', select);
   try {
 
     var m = model
-        .find(find)
+        .find(where)
         .limit(limit)
         .select(select)
         .sort(sort)
@@ -102,11 +102,11 @@ const create = async function({model, body}){
   // }
 };
 
-const updateOne = async function({query, body, model}){
-  if(Object.keys(query).length === 0 || Object.keys(body).length === 0){
+const updateOne = async function({where, body, model}){
+  if(Object.keys(where).length === 0 || Object.keys(body).length === 0){
     throw new Error(404);
   }
-  return model.findOneAndUpdate(query, {
+  return model.findOneAndUpdate(where, {
     '$set': body,
   }, {
     new: true,

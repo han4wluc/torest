@@ -1,23 +1,23 @@
 
 import _ from 'lodash';
 
-const parseFind = function(find){
-  // return find || {};
+const parseWhere = function(where){
+  // return where || {};
 
-  var find2;
+  var where2;
   try {
-    find2 = JSON.parse(find);
+    where2 = JSON.parse(where);
   } catch (error) {
-    find2 = {};
+    where2 = {};
   }
 
-  // console.log('type', typeof find)
-  // if(!_.isObject(find)){
+  // console.log('type', typeof where)
+  // if(!_.isObject(where)){
   //   return {};
   // }
-  return find2;
+  return where2;
   // return {
-  //   ...find,
+  //   ...where,
   //   deleted: false,
   // };
 };
@@ -103,19 +103,19 @@ const parseSort = function(sort){
 };
 
 const parseQuery = function(query = {}){
-  const find     = parseFind(query.find);
+  const where    = parseWhere(query.where);
   const limit    = parseLimit(query.limit);
   const select   = parseSelect(query.select);
   const sort     = parseSort(query.sort);
   const skip     = parseSkip(query.skip);
   const populate = parsePopulate(query.populate);
   return {
-    find, limit, select, sort, skip, populate
+    where, limit, select, sort, skip, populate
   };
 };
 
 export default {
-  parseFind,
+  parseWhere,
   parseLimit,
   parseSelect,
   parseSort,

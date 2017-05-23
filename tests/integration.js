@@ -137,7 +137,7 @@ describe('GET /', function(){
 
     const { status, data } = await axs.get('/note', {
       params: {
-        find: {
+        where: {
           title: 'data1'
         }
       }
@@ -428,7 +428,7 @@ describe('PUT /', function(){
 
     try {
       const { status, data } = await axs.put('/note', {
-        query: {},
+        where: {},
         body: { title: 'hello' },
       });
       done(new Error('Error'));
@@ -443,7 +443,7 @@ describe('PUT /', function(){
 
     try {
       const { status, data } = await axs.put('/note', {
-        query: { title: 'hello' },
+        where: { title: 'hello' },
         body: {},
       });
       done(new Error('Error'));
@@ -475,7 +475,7 @@ describe('PUT /', function(){
     await Note.insertMany(genData());
 
     const { status, data } = await axs.put('/note', {
-      query: { title: 'nonexisting' },
+      where: { title: 'nonexisting' },
       body: { _id:'56cb91bdc3464f14678934cc', title: 'wallo' },
     });
 
@@ -504,7 +504,7 @@ describe('PUT /', function(){
     await Note.insertMany(genData());
 
     const { status, data } = await axs.put('/note', {
-      query: { title: 'data2' },
+      where: { title: 'data2' },
       body: { title: 'new_title' },
     });
 

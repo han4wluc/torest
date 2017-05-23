@@ -17,7 +17,7 @@ class Rest {
     router.get('/', this._findAll.bind(this));
     router.get('/:id', this._findOne.bind(this));
     router.post('/', this._create.bind(this));
-    router.put('/', this._updateOne.bind(this));
+    router.put('/', this._upsertOne.bind(this));
     router.put('/:id', this._update.bind(this));
     router.delete('/:id', this._remove.bind(this));
 
@@ -112,12 +112,12 @@ class Rest {
     // res.status(201).send(result);
   }
 
-  async _updateOne(req, res) {
+  async _upsertOne(req, res) {
     try {
       const result = await DAO.updateOne({
         model: this.model,
         body: req.body.body,
-        query: req.body.query,
+        where: req.body.where,
       });
       res.status(200).send(result);
     } catch (error) {
