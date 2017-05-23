@@ -30,6 +30,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.17.2",
     "chai": "^3.5.0",
+    "mocha": "^3.4.1",
     "mockgoose": "^7.3.1"
   }
 }
