@@ -1,13 +1,18 @@
 {
-  "name": "noderest",
+  "name": "torest",
   "version": "0.0.1",
-  "description": "Create rest api",
-  "main": "dist.js",
+  "description": "Create REST api",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha ./tests/index.js",
-    "build": "babel ./src --presets babel-preset-es2015,babel-preset-stage-2 -o ./tmp.js && uglifyjs ./tmp.js --compress --mangle -o ./dist.js && rm ./tmp.js"
+    "build": "babel ./src --presets babel-preset-es2015,babel-preset-stage-2 --out-dir ./dist"
   },
   "author": "han4wluc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/han4wluc/torest.git"
+  },
+  "bugs": "https://github.com/han4wluc/torest/issues",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.0",
