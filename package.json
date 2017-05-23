@@ -4,7 +4,7 @@
   "description": "Create REST api",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha ./tests/index.js",
+    "test": "mocha ./tests/index.js --timeout 100000",
     "build": "babel ./src --presets babel-preset-es2015,babel-preset-stage-2 --out-dir ./dist"
   },
   "author": "han4wluc",
