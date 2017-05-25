@@ -2,27 +2,15 @@
 import _ from 'lodash';
 
 const parseWhere = function(where){
-  // return where || {};
-
   var where2;
   try {
     where2 = JSON.parse(where);
   } catch (error) {
     where2 = {};
   }
-
-  // console.log('type', typeof where)
-  // if(!_.isObject(where)){
-  //   return {};
-  // }
   return where2;
-  // return {
-  //   ...where,
-  //   deleted: false,
-  // };
 };
 
-// array
 const parsePopulate = function(populate){
   if(_.isArray(populate)){
     return populate.map((p)=>{
@@ -69,19 +57,9 @@ const parseSelect = function(select){
   try {
     select2 = JSON.parse(select);
   } catch (error) {
-    // select2;
     select2 = select;
   }
   return select2;
-  // return select || {};
-  // if(!_.isObject(select)){
-    // return {};
-  //   return { password: 0 };
-  // }
-  // return select;
-  //   ...select,
-  //   password: 0,
-  // };
 };
 
 const parseSort = function(sort){
@@ -92,14 +70,6 @@ const parseSort = function(sort){
     sort2 = {};
   }
   return sort2;
-  // return sort || {};
-  // if(!_.isObject(sort)){
-  //   return {};
-  // }
-  // return sort;
-  // return {
-  //   ...sort,
-  // };
 };
 
 const parseQuery = function(query = {}){

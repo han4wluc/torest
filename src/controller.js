@@ -25,14 +25,7 @@ class Rest {
 
   }
 
-  // _handleError(params) {
-  //   const { result,res } = params;
-  //   // console.log('result', result);
-  //   res.status(500).send(result);
-  // }
-
   async _findAll(req, res) {
-    // console.log('_findAll 111', req.query)
     const query = req.query;
 
     try {
@@ -42,31 +35,11 @@ class Rest {
       });
       res.status(200).send(result);
     } catch (error){
-      // res.status(500).send({
-      //   message: 'server error'
-      // });
       console.log({error});
       res.status(500).send(error);
     }
-
-
-
-    // const result = await DAO.findAll({
-    //   model: this.model,
-    //   query: req.query,
-    // });
-
-    // console.log('_findAll 222')
-    // if(result.error){
-    //   return res.status(500).send(result);
-    // }
-    // console.log({result})
-    // res.status(200).send(result);
-
-
   }
 
-  // find by id
   async _findOne(req, res) {
     const query = req.query;
     try {
@@ -75,24 +48,13 @@ class Rest {
         id: req.params.id,
         query: query
       });
-      // console.log({result})
       if(!result){
         return res.status(404).send();
       }
-      // console.log({result})
       res.status(200).send(result);
     } catch (error) {
       res.status(500).send(error);
     }
-
-
-    // if(result.error){
-    //   return this._handleError({result, res});
-    // }
-    // if(!result.row){
-    //   return res.status(404).send();
-    // }
-    // res.status(200).send(result);
   }
 
   async _create(req, res) {
@@ -105,11 +67,6 @@ class Rest {
     } catch (error) {
       res.status(500).send(error);
     }
-
-    // if(result.error){
-    //   return this._handleError({result, res});
-    // }
-    // res.status(201).send(result);
   }
 
   async _upsertOne(req, res) {
@@ -134,21 +91,11 @@ class Rest {
       });
       res.status(200).send(result);
     } catch (error) {
-      // console.log('aaaaaa', error);
-      // console.log('aaaaaa', error.message);
-      // console.log('aaaaaa', typeof error.message);
       if(error.message === '404'){
         return res.status(404).send(error);
       }
       res.status(500).send(error);
     }
-    // if(result.error){
-    //   return this._handleError({result, res});
-    // }
-    // if(!result.updated){
-    //   return res.status(204).send();
-    // }
-    // res.status(200).send();
   }
 
   async _remove(req, res){
@@ -164,14 +111,6 @@ class Rest {
       }
       res.status(500).send(error);
     }
-
-    // if(result.error){
-    //   return this._handleError({result, res});
-    // }
-    // if(!result.deleted){
-    //   return res.status(204).send();
-    // }
-    // res.status(200).send();
   }
 
 }

@@ -3,81 +3,68 @@ import chai from'chai';
 const should = chai.should();
 
 import startApp from './express';
-
-var Mongoose = require('mongoose').Mongoose;
-var mongoose = new Mongoose();
-
-var Mockgoose = require('mockgoose').Mockgoose;
-var mockgoose = new Mockgoose(mongoose);
 import Rest from '../src/controller';
-
-mongoose.Promise = require('bluebird');
-let app;
-
-var Note;
-var Article;
-
-before(function(done) {
-  mockgoose.prepareStorage().then(function() {
-    mongoose.connect('mongodb://example.com/TestingDB', function(err) {
-      // app = require('./express');
-      startApp().then((newApp)=>{
-        app = newApp;
-
-        var Schema = mongoose.Schema;
-        var NoteSchema = new Schema({
-          // _id: Schema.Types.ObjectId,
-          // _id: Number,
-          title: String,
-          text: String,
-        },
-        // { _id: false }
-        );
-        Note = mongoose.model('Note', NoteSchema);
-
-        var ArticleSchema = new Schema({
-          note: {
-            type: Schema.Types.ObjectId,
-            ref: 'Note',
-          },
-          note2: {
-            type: Schema.Types.ObjectId,
-            ref: 'Note',
-          }
-        });
-        Article = mongoose.model('Article', ArticleSchema);
-
-
-        new Rest({
-          model: Note,
-          app,
-          routeName: '/note',
-        });
-
-        new Rest({
-          model: Article,
-          app,
-          routeName: '/article',
-        });
-
-        done(err);
-      });
-    });
-  });
-});
-
 
 import axios from 'axios';
 const axs = axios.create({
   baseURL: 'http://localhost:8081',
   timeout: 1000,
-  // headers: {'X-Custom-Header': 'foobar'}
 });
+
+let Mongoose = require('mongoose').Mongoose;
+let mongoose = new Mongoose();
+let Mockgoose = require('mockgoose').Mockgoose;
+let mockgoose = new Mockgoose(mongoose);
+mongoose.Promise = require('bluebird');
+
+let app;
+let Note;
+let Article;
+
+const mockDatabase = async function(){
+  await mockgoose.prepareStorage();
+  await mongoose.connect('mongodb://example.com/TestingDB');
+  const app = await startApp();
+  let Schema = mongoose.Schema;
+  let NoteSchema = new Schema({
+    title: String,
+    text: String,
+  },
+  );
+  Note = mongoose.model('Note', NoteSchema);
+
+  let ArticleSchema = new Schema({
+    note: {
+      type: Schema.Types.ObjectId,
+      ref: 'Note',
+    },
+    note2: {
+      type: Schema.Types.ObjectId,
+      ref: 'Note',
+    }
+  });
+  Article = mongoose.model('Article', ArticleSchema);
+
+  Rest({
+    model: Note,
+    app,
+    routeName: '/note',
+  });
+
+  Rest({
+    model: Article,
+    app,
+    routeName: '/article',
+  });
+};
+
+before(mockDatabase);
+
+
 
 beforeEach(async function(){
   await mockgoose.helper.reset();
 });
-
 
 const genData = function(){
   return [{

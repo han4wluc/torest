@@ -7,17 +7,9 @@ import Parse from './parse';
 
 const { isValid } =  mongoose.Types.ObjectId;
 
-
 const findAll = async function({model, query: originalQuery}){
-  // const {
-  //   model, query: originalQuery
-  // } = params;
-  // console.log({originalQuery})
-
   const query = Parse.parseQuery(originalQuery);
-  // console.log({query})
   const { where, limit, select, sort, skip, populate } = query;
-  // console.log('select', select);
   try {
 
     var m = model
@@ -31,33 +23,13 @@ const findAll = async function({model, query: originalQuery}){
     }
 
     const rows = await m.exec();
-
-    // const rows =
-    //   await model
-    //     .find(find)
-    //     .limit(limit)
-    //     .select(select)
-    //     .sort(sort)
-    //     .skip(skip)
-    //     .exec();
-    // return {
-    //   query, rows
-    // };
     return rows;
   } catch (error){
-    throw new Error(error);
-    // return {
-    //   query, error
-    // };
-    // return error;
+    throw error;
   }
 };
 
 const findOne = async function({model, id, query: originalQuery}){
-  // const {
-  //   model, id, query: originalQuery
-  // } = params;
-
   const query = Parse.parseQuery(originalQuery);
   const { select } = query;
 
@@ -65,41 +37,10 @@ const findOne = async function({model, id, query: originalQuery}){
         .findOne({_id:id})
         .select(select)
         .exec();
-
-  // try {
-
-  //   throw new Error('Error 44')
-
-  //   const row =
-  //     await model
-  //       .findOne({_id:id})
-  //       .select(select)
-  //       .exec();
-  //   // return {
-  //   //   id, select, row
-  //   // };
-  //   return row;
-  // } catch (error){
-  //   // return {
-  //   //   id, select, error
-  //   // };
-  //   return error;
-  // }
 };
 
 const create = async function({model, body}){
-  // todo limit parameters
   return model.create(body);
-  // try {
-  //   const created = await model.create(body);
-  //   // return { created };
-  //   return created;
-  // } catch (error){
-  //   return error;
-  //   // return {
-  //   //   error,
-  //   // };
-  // }
 };
 
 const updateOne = async function({where, body, model}){
@@ -115,8 +56,6 @@ const updateOne = async function({where, body, model}){
 };
 
 const update = async function({id, body, model}){
-
-
   if(!isValid(id)){
     return { };
   }
@@ -130,37 +69,14 @@ const update = async function({id, body, model}){
 
   return model.findOneAndUpdate({
     _id: id,
-    // deleted: false,
   }, {
     '$set': body,
   }, {
     new: true,
   });
-
-  // try {
-  //   // check for deleted
-  //   const updated =
-  //     await model.findOneAndUpdate({
-  //       _id: id,
-  //       // deleted: false,
-  //     }, {
-  //       '$set': body,
-  //     }, {
-  //       new: true,
-  //     });
-  //   // return { updated };
-  //   return updated;
-  // } catch (error){
-  //   return error;
-  //   // return { error };
-  // }
 };
 
 const remove = async function({model, id}){
-  // const {
-  //   model,
-  //   id,
-  // } = params;
 
   if(!isValid(id)){
     return { deleted: false };
@@ -174,24 +90,6 @@ const remove = async function({model, id}){
   }
 
   return model.remove({_id: id}).exec();
-
-  // try {
-  //   const updated =
-  //     await model.remove({_id: id,}).exec();
-  //     // await model.findOneAndUpdate({
-  //     //   _id: id,
-  //     //   deleted: false,
-  //     // }, {
-  //     //   '$set': {
-  //     //     deleted: true,
-  //     //   },
-  //     // });
-  //   // return { deleted: true };
-  //   return {};
-  // } catch (error){
-  //   return error;
-  //   // return { error };
-  // }
 };
 
 export default {
